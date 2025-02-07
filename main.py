@@ -10,16 +10,36 @@ ram = [0]*100
 global output
 output = ""
 global speed
-speed = 3
+speed = 0.5
 
-ram[0] = 300
-ram[1] = 199
-ram[2] = 400
-ram[3] = 845
-ram[4] = 900
-ram[5] = 268
-ram[6] = 400
-ram[68] = 137
+ram[99] = 80
+ram[98] = 865
+ram[97] = 868
+ram[96] = 81
+ram[95] = 883
+ram[94] = 885
+ram[93] = 866
+ram[92] = 845
+
+ram[0] = 299
+ram[1] = 400
+ram[2] = 298
+ram[3] = 900
+ram[4] = 297
+ram[5] = 900
+ram[6] = 297
+ram[7] = 900
+ram[8] = 292
+ram[9] = 900
+ram[10] = 296
+ram[11] = 400
+ram[12] = 295
+ram[13] = 900
+ram[14] = 294
+ram[15] = 900
+ram[16] = 293
+ram[17] = 900
+
 # 1 = store
 # 2 = load acc
 # 3 = input
@@ -42,15 +62,15 @@ def CU(cmd):
   global output
   global speed
   print("excecuting instruction", cmd)
-  time.sleep(speed/4)
+  time.sleep(speed)
   match int(cmd[0]):
     case 1:
       #print(int(cmd[1:].lstrip("0")))
       print("storing", int(acc.lstrip("0")), "at address", int(cmd[1:].lstrip("0")))
       ram[int(cmd[1:].lstrip("0"))] = int(acc.lstrip("0"))
     case 2:
-      print("loading accumulator with value", str(ram[int(cmd[1:].lstrip("0"))]))
-      acc = str(ram[int(cmd[1:].lstrip("0"))])
+      print("loading accumulator with value", str(ram[int(cmd[1:].lstrip("0"))])[1:])
+      acc = str(ram[int(cmd[1:].lstrip("0"))])[1:]
     case 3:
       print("awaiting input")
       acc = input("> ")
@@ -59,10 +79,10 @@ def CU(cmd):
       output = output + acc + "\n"
     case 5:
       print("adding address", int(cmd[1:].lstrip("0")), "and accumulator value ", int(acc.lstrip("0")))
-      acc = ALU(ram[int(cmd[1:].lstrip("0"))], int(acc.lstrip("0")), 5)
+      acc = str(ALU(ram[int(cmd[1:].lstrip("0"))], int(acc.lstrip("0")), 5))
     case 6:
       print("subtracting address", int(cmd[1:].lstrip("0")), "and accumulator value ", int(acc.lstrip("0")))
-      acc = ALU(ram[int(cmd[1:].lstrip("0"))], int(acc.lstrip("0")), 6)
+      acc = str(ALU(ram[int(cmd[1:].lstrip("0"))], int(acc.lstrip("0")), 6))
     case 8:
       print("arbitrary data:", int(cmd[1:].lstrip("0")), "| assigning to accumulator")
       acc = str(cmd[1:].lstrip("0"))
@@ -76,12 +96,13 @@ def excecute():
     print(ram)
     print(pc)
     print("fetching instruction")
-    time.sleep(speed/4)
+    time.sleep(speed)
     CU(str(ram[pc]))
     print("-------------------------")
     print(output)
     pc+=1
     time.sleep(speed)
+  print("program halted")
 
 
 excecute()
