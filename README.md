@@ -8,7 +8,25 @@ also NO WHITESPACES AT THE END, START OR IN THE MIDDLE OF LINES IT WILL NOT WORK
 
 commands
 
-1<address_here> = store current accumulator value at address specified. e.g. 187 (stores value in accumulator at address 87)
+1<address_here> = store current accumulator value at address specified. e.g. 187 (stores accumulator value at address 87)
 be careful not to overwrite any code you have stored whilst using this and any other commands that set an address to a value
 
-2<address_here>
+2<address_here> = store specified address' value into the accumulator (overwriting what was previously in it) e.g. 254 (stores address 54 value in accumulator)
+
+3 = take a user input and store it in the accumulator
+
+4 = outputs current value in accumulator
+
+5<address_here> = adds the value in the accumulator and the value in the specified address, and overwrites the accumulator with the answer 
+e.g. 546 (adds accumulator value and value at address 46 and outputs the result to the accumulator)
+
+6<address_here> = subtracts the value in the accumulator and the value in the specified address, and overwrites the accumulator with the answer 
+e.g. 692 (subtracts value at address 92 from value in accumulator and outputs to the accumulator)
+
+7<address_1(3 digits)><address_2> = branch if zero. moves the program counter to address_2 if address_1 is 0
+e.g. 713267 (if address 132's value is 0, the program counter will be set to excecute from address 67)
+
+8<number> = an old thing i decided to keep (may be removed in the future) sets accumulator to number defined
+e.g. 871 (sets accumulator value to 71)
+
+9 = converts value in accumulator to the corresponding ascii character and then outputs it (does not overwrite accumulator)
