@@ -61,6 +61,7 @@ def CU(cmd):
   global acc
   global output
   global speed
+  global pc
   print("excecuting instruction", cmd)
   time.sleep(speed)
   match int(cmd[0]):
@@ -83,6 +84,12 @@ def CU(cmd):
     case 6:
       print("subtracting address", int(cmd[1:].lstrip("0")), "and accumulator value ", int(acc.lstrip("0")))
       acc = str(ALU(ram[int(cmd[1:].lstrip("0"))], int(acc.lstrip("0")), 6))
+    case 7:
+      if ram[int(cmd[1:].lstrip("0"))] == 0:
+        pc = int(cmd[1:])
+        print("branching to address", cmd[1:])
+      else:
+        print("branch returned false, not branching")
     case 8:
       print("arbitrary data:", int(cmd[1:].lstrip("0")), "| assigning to accumulator")
       acc = str(cmd[1:].lstrip("0"))
