@@ -76,6 +76,7 @@ def excecute():
   global pc
   while not(str(ram[pc]) == "#"):
     os.system("clear")
+    print(str(ram[pc]))
     print(ram)
     print(pc)
     print("-------------------------")
@@ -107,6 +108,8 @@ with open("code.txt", "r+") as f:
       continue
     if i.replace("\n", "") == "#":
       ram[x] = "#"
+      print("#")
+      x+=1
       continue
     ram[x] = int(i)
     print(int(i))
