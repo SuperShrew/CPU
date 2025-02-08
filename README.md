@@ -6,6 +6,24 @@ also just so you know if you have used the ! at the start, the ram address you a
 and a blank line is automatically set to 0 in the ram
 also NO WHITESPACES AT THE END, START OR IN THE MIDDLE OF LINES IT WILL NOT WORK as of now
 
+IMPORTANT: always use a hashtag to halt the program, if no halt is specifed, the program will just give an error
+
+e.g. (bad code)
+
+3
+1458
+4
+
+^ no hashtag at the end (baaad)
+
+(good code)
+
+3
+1458
+4
+#
+^ yayyy hashtag (good)
+
 commands
 
 1<address_here> = store current accumulator value at address specified. e.g. 187 (stores accumulator value at address 87)
