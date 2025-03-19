@@ -21,7 +21,7 @@ e.g. (bad code)
 3
 1458
 4
-#
+##
 ^ yayyy hashtag (good)
 
 commands
