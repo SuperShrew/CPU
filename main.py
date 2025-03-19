@@ -60,7 +60,7 @@ def CU(cmd):
     case 7:
       print(cmd[1:3])
       print(ram[int(cmd[1:5].lstrip("0"))])
-      if ram[int(cmd[1:4].lstrip("0"))] == 0:
+      if ram[int(cmd[1:5].lstrip("0"))] == 0:
         pc = int(cmd[4:])
         print("branching to address", cmd[3:])
       else:
