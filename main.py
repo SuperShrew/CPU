@@ -6,7 +6,7 @@ acc = 0
 global pc
 pc = 0
 global ram
-ram = [0]*1000
+ram = [0]*16384
 global output
 output = ""
 global speed
@@ -59,7 +59,7 @@ def CU(cmd):
       acc = str(ALU(ram[int(cmd[1:].lstrip("0"))], int(acc.lstrip("0")), 6))
     case 7:
       print(cmd[1:3])
-      print(ram[int(cmd[1:4].lstrip("0"))])
+      print(ram[int(cmd[1:5].lstrip("0"))])
       if ram[int(cmd[1:4].lstrip("0"))] == 0:
         pc = int(cmd[4:])
         print("branching to address", cmd[3:])
