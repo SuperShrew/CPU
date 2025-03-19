@@ -11,6 +11,8 @@ global output
 output = ""
 global speed
 speed = 1
+global log
+log = []
 
 # 1 = store
 # 2 = load acc
@@ -25,9 +27,9 @@ speed = 1
 
 
 def ALU(adr1, adr2, op):
-  if op == 5:
+  if op == 0:
     return adr1+adr2
-  elif op == 6:
+  elif op == 1:
     return adr1-adr2
 
 def CU(cmd):
@@ -35,6 +37,7 @@ def CU(cmd):
   global output
   global speed
   global pc
+  global log
   print("excecuting instruction", cmd)
   time.sleep(speed)
   match int(cmd[0]):
@@ -46,17 +49,28 @@ def CU(cmd):
       print("loading accumulator with value", str(ram[int(cmd[1:].lstrip("0"))]))
       acc = str(ram[int(cmd[1:].lstrip("0"))])
     case 3:
-      print("awaiting input")
-      acc = input("> ")
+      temp_storage = []
+      if cmd[1] == "0":
+        acc = int(input("> "))
+      elif cmd[1] == "1":
+        for i in input("> "):
+          temp_storage.append(ord(i))
+        x = int(cmd[2:])
+        for i in temp_storage:
+          ram[x] = i
+          x += 1
     case 4:
       print("outputting value", acc)
       output = output + str(acc) + "\n"
     case 5:
-      print("adding address", int(cmd[1:].lstrip("0")), "and accumulator value ", int(acc.lstrip("0")))
-      acc = str(ALU(ram[int(cmd[1:].lstrip("0"))], int(acc.lstrip("0")), 5))
+      if cmd[1] == "0":
+        print("adding address", int(cmd[2:].lstrip("0")), "and accumulator value ", int(acc.lstrip("0")))
+        acc = str(ALU(ram[int(cmd[2:].lstrip("0"))], int(acc.lstrip("0")), 0))
+      elif cmd[1] == "1":
+        print("subtracting address", int(cmd[2:].lstrip("0")), "and accumulator value ", int(acc.lstrip("0")))
+        acc = str(ALU(ram[int(cmd[2:].lstrip("0"))], int(acc.lstrip("0")), 1))
     case 6:
-      print("subtracting address", int(cmd[1:].lstrip("0")), "and accumulator value ", int(acc.lstrip("0")))
-      acc = str(ALU(ram[int(cmd[1:].lstrip("0"))], int(acc.lstrip("0")), 6))
+      print("nuthin")
     case 7:
       print(cmd[1:3])
       print(ram[int(cmd[1:5].lstrip("0"))])
