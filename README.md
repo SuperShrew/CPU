@@ -36,7 +36,7 @@ be careful not to overwrite any code you have stored whilst using this and any o
 
 02<address_here> = store specified address' value into the accumulator (overwriting what was previously in it) e.g. 0254 (stores address 54 value in accumulator)
 
-03<type><address_here> = if type = 1 then it is a string input and the value is stored from <address> and onwards, each character being encoded in ascii
+03<_type><address_here> = if type = 1 then it is a string input and the value is stored from <address> and onwards, each character being encoded in ascii
 if type = 0 then it is an integer input and stores value in accumulator
 
 04 = outputs current value in accumulator
