@@ -23,6 +23,7 @@ speed = 1
 # 9 = ascii value output
 # # = halt program
 
+showram = input("show ram? (enter = no, anything else = yes)\n> ")
 
 def ALU(adr1, adr2, op):
   if op == 5:
@@ -37,27 +38,27 @@ def CU(cmd):
   global pc
   print("excecuting instruction", cmd)
   time.sleep(speed)
-  match int(cmd[0]):
-    case 1:
+  match cmd[0:1]:
+    case "01":
       #print(int(cmd[1:].lstrip("0")))
       print("storing", int(acc), "at address", int(cmd[1:].lstrip("0")))
       ram[int(cmd[1:].lstrip("0"))] = int(acc)
-    case 2:
+    case "02":
       print("loading accumulator with value", str(ram[int(cmd[1:].lstrip("0"))]))
       acc = str(ram[int(cmd[1:].lstrip("0"))])
-    case 3:
+    case "03":
       print("awaiting input")
       acc = input("> ")
-    case 4:
+    case "04":
       print("outputting value", acc)
       output = output + str(acc) + "\n"
-    case 5:
+    case "05":
       print("adding address", int(cmd[1:].lstrip("0")), "and accumulator value ", int(acc.lstrip("0")))
       acc = str(ALU(ram[int(cmd[1:].lstrip("0"))], int(acc.lstrip("0")), 5))
-    case 6:
+    case "06":
       print("subtracting address", int(cmd[1:].lstrip("0")), "and accumulator value ", int(acc.lstrip("0")))
       acc = str(ALU(ram[int(cmd[1:].lstrip("0"))], int(acc.lstrip("0")), 6))
-    case 7:
+    case "07":
       print(cmd[1:3])
       print(ram[int(cmd[1:5].lstrip("0"))])
       if ram[int(cmd[1:5].lstrip("0"))] == 0:
@@ -65,10 +66,10 @@ def CU(cmd):
         print("branching to address", cmd[3:])
       else:
         print("branch returned false, not branching")
-    case 8:
+    case "08":
       print("defined data:", int(cmd[1:].lstrip("0")), "| assigning to accumulator")
       acc = str(cmd[1:].lstrip("0"))
-    case 9:
+    case "09":
       print("outputting ascii value", int(acc), chr(int(acc)))
       output = output + chr(int(acc)) + "\n"
 
@@ -77,7 +78,8 @@ def excecute():
   while not(str(ram[pc]) == "#"):
     os.system("clear")
     print(str(ram[pc]))
-    print(ram)
+    if showram:
+        print(ram)
     print(pc)
     print("-------------------------")
     print(output)
@@ -111,6 +113,11 @@ with open("code.txt", "r+") as f:
       print("#")
       x+=1
       continue
+    for a in range(0, len(i)):
+      if i[a] == ";":
+        i = i[:a]
+        i = i.strip()
+        break
     ram[x] = int(i)
     print(int(i))
     time.sleep(0.1)
