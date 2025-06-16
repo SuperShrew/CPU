@@ -44,13 +44,13 @@ if type = 0 then it is an integer input and stores value in accumulator
 05<address_here> = adds the value in the accumulator and the value in the specified address, and overwrites the accumulator with the answer 
 e.g. 0546 (adds accumulator value and value at address 46 and outputs the result to the accumulator)
 
-6 = <address_here> = subtracts the value in the accumulator from the value in the specified address, and overwrites the accumulator with the answer 
+06 = <address_here> = subtracts the value in the accumulator from the value in the specified address, and overwrites the accumulator with the answer 
 e.g. 0646 (subtracts accumulator value from value at address 46 and outputs the result to the accumulator)
 
-7<address_1(5 digits)><address_2> = branch if zero. moves the program counter to address_2 if address_1 is 0
-e.g. 70013267 (if address 132's value is 0, the program counter will be set to excecute from address 67)
+07<address_1(5 digits)><address_2> = branch if zero. moves the program counter to address_2 if address_1 is 0
+e.g. 070013267 (if address 132's value is 0, the program counter will be set to excecute from address 67)
 
-8<number> = an old thing i decided to keep (may be removed in the future) sets accumulator to number defined
-e.g. 871 (sets accumulator value to 71)
+08<number> = an old thing i decided to keep (may be removed in the future) sets accumulator to number defined
+e.g. 0871 (sets accumulator value to 71)
 
-9 = converts value in accumulator to the corresponding ascii character and then outputs it (does not overwrite accumulator)
+09 = converts value in accumulator to the corresponding ascii character and then outputs it (does not overwrite accumulator)
