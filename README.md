@@ -1,3 +1,19 @@
+NOTICE: this has been discontinued and restarted in a different repository. if you want to use this then use the latest one on the beta branch
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 HOW TO USE:
 
 at the start of your code file use a ! and a number to define the time it takes in seconds to do part of a cycle (this is not necassary and is automatically set to 1)
