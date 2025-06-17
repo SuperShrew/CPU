@@ -25,6 +25,7 @@ log = []
 # 9 = ascii value output
 # # = halt program
 
+showram = input("show ram? (enter = no, anything else = yes)\n> ")
 
 def ALU(adr1, adr2, op):
   if op == 0:
@@ -40,82 +41,18 @@ def CU(cmd):
   global log
   #print("excecuting instruction", cmd)
   time.sleep(speed)
-  match int(cmd[0]):
-    case 1:
+  match cmd[0:1]:
+    case "01":
       #print(int(cmd[1:].lstrip("0")))
       #print("storing", int(acc), "at address", int(cmd[1:].lstrip("0")))
       ram[int(cmd[1:].lstrip("0"))] = int(acc)
-    case 2:
-      #print("loading accumulator with value", str(ram[int(cmd[1:].lstrip("0"))]))
-      acc = str(ram[int(cmd[1:].lstrip("0"))])
-    case 3:
-      temp_storage = []
-      if cmd[1] == "0" and cmd[2] == "0":
-        ram[int(cmd[3:])] = int(input("> "))
-      elif cmd[1] == "0" and cmd[2] == "1":
-        acc = int(input("> "))
-      elif cmd[1] == "1":
-        for i in input("> "):
-          temp_storage.append(ord(i))
-        x = int(cmd[2:])
-        for i in temp_storage:
-          ram[x] = i
-          x += 1
-      elif cmd[1] == "2":
-        input("> ")
-    case 4:
-      #print("outputting value", acc)
-      output = output + str(acc) + "\n"
-    case 5:
-      if cmd[1] == "0":
-        #print("adding address", int(cmd[2:].lstrip("0")), "and accumulator value ", int(acc.lstrip("0")))
-        acc = str(ALU(ram[int(cmd[2:].lstrip("0"))], int(acc.lstrip("0")), 0))
-      elif cmd[1] == "1":
-        #print("subtracting address", int(cmd[2:].lstrip("0")), "and accumulator value ", int(acc.lstrip("0")))
-        acc = str(ALU(ram[int(cmd[2:].lstrip("0"))], int(acc.lstrip("0")), 1))
-    case 6:
-      #print("clearing output")
-      output = ""
-    case 7:
-      if cmd[1] == "0":
-        print(cmd[2:7])
-        print(ram[int(cmd[2:7].lstrip("0"))])
-        if ram[int(cmd[2:7].lstrip("0"))] == 0:
-          pc = int(cmd[7:])
-          print("branching to address", cmd[7:])
-        else:
-          print("branch returned false, not branching")
-      else:
-        print("yay")
-        print(int(cmd[2:7].lstrip("0")))
-        print(ram[int(cmd[2:7].lstrip("0"))])
-        print(int(cmd[8:13].lstrip("0")))
-        print(ram[int(cmd[8:13].lstrip("0"))])
-        print(int(cmd[13:].lstrip("0")))
-        print(ram[int(cmd[13:].lstrip("0"))])
-        #input()
-        if ram[int(cmd[2:7].lstrip("0"))] == ram[int(cmd[13:].lstrip("0"))]:
-          print("YAY")
-          pc = int(cmd[8:13].lstrip("0"))-1
-          #time.sleep(1)
-        else:
-          print("nay")
-          #time.sleep(1)
-    case 8:
-      print("defined data:", int(cmd[1:].lstrip("0")), "| assigning to accumulator")
-      acc = str(cmd[1:].lstrip("0"))
-    case 9:
-      #print("outputting ascii value", int(acc), chr(int(acc)))
-      output = output + chr(int(cmd[1:]))
 
 def excecute():
   global pc
   while not(str(ram[pc]) == "#"):
     os.system("clear")
     print(str(ram[pc]))
-    #print(ram)
-    print(output, end="")
-    #print("fetching instruction")
+
     time.sleep(speed)
     CU(str(ram[pc]))
     pc+=1
@@ -144,6 +81,11 @@ with open("code.txt", "r+") as f:
       print("#")
       x+=1
       continue
+    for a in range(0, len(i)):
+      if i[a] == ";":
+        i = i[:a]
+        i = i.strip()
+        break
     ram[x] = int(i)
     print(int(i))
     time.sleep(speed)
